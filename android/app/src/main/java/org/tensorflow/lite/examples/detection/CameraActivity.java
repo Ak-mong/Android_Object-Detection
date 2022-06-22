@@ -71,7 +71,6 @@ public abstract class CameraActivity extends AppCompatActivity
   private static final int PERMISSIONS_REQUEST = 1;
 
   private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
-  private static final String ASSET_PATH = "";
   protected int previewWidth = 0;
   protected int previewHeight = 0;
   private boolean debug = false;
@@ -112,9 +111,6 @@ public abstract class CameraActivity extends AppCompatActivity
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     setContentView(R.layout.tfe_od_activity_camera);
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     if (hasPermission()) {
       setFragment();
@@ -122,104 +118,6 @@ public abstract class CameraActivity extends AppCompatActivity
       requestPermission();
     }
 
-    threadsTextView = findViewById(R.id.threads);
-    currentNumThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
-    plusImageView = findViewById(R.id.plus);
-    minusImageView = findViewById(R.id.minus);
-    deviceView = findViewById(R.id.device_list);
-    deviceStrings.add("CPU");
-    deviceStrings.add("GPU");
-    deviceStrings.add("NNAPI");
-    deviceView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-    ArrayAdapter<String> deviceAdapter =
-            new ArrayAdapter<>(
-                    CameraActivity.this , R.layout.deviceview_row, R.id.deviceview_row_text, deviceStrings);
-    deviceView.setAdapter(deviceAdapter);
-    deviceView.setItemChecked(defaultDeviceIndex, true);
-    currentDevice = defaultDeviceIndex;
-    deviceView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
-              @Override
-              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updateActiveModel();
-              }
-            });
-
-    bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
-    gestureLayout = findViewById(R.id.gesture_layout);
-    sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
-    modelView = findViewById((R.id.model_list));
-
-    modelStrings = getModelStrings(getAssets(), ASSET_PATH);
-    modelView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-    ArrayAdapter<String> modelAdapter =
-            new ArrayAdapter<>(
-                    CameraActivity.this , R.layout.listview_row, R.id.listview_row_text, modelStrings);
-    modelView.setAdapter(modelAdapter);
-    modelView.setItemChecked(defaultModelIndex, true);
-    currentModel = defaultModelIndex;
-    modelView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
-              @Override
-              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updateActiveModel();
-              }
-            });
-
-    ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
-    vto.addOnGlobalLayoutListener(
-        new ViewTreeObserver.OnGlobalLayoutListener() {
-          @Override
-          public void onGlobalLayout() {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-              gestureLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            } else {
-              gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-            //                int width = bottomSheetLayout.getMeasuredWidth();
-            int height = gestureLayout.getMeasuredHeight();
-
-            sheetBehavior.setPeekHeight(height);
-          }
-        });
-    sheetBehavior.setHideable(false);
-
-    sheetBehavior.setBottomSheetCallback(
-        new BottomSheetBehavior.BottomSheetCallback() {
-          @Override
-          public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            switch (newState) {
-              case BottomSheetBehavior.STATE_HIDDEN:
-                break;
-              case BottomSheetBehavior.STATE_EXPANDED:
-                {
-                  bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_down);
-                }
-                break;
-              case BottomSheetBehavior.STATE_COLLAPSED:
-                {
-                  bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                }
-                break;
-              case BottomSheetBehavior.STATE_DRAGGING:
-                break;
-              case BottomSheetBehavior.STATE_SETTLING:
-                bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                break;
-            }
-          }
-
-          @Override
-          public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-        });
-
-    frameValueTextView = findViewById(R.id.frame_info);
-    cropValueTextView = findViewById(R.id.crop_info);
-    inferenceTimeTextView = findViewById(R.id.inference_info);
-
-    plusImageView.setOnClickListener(this);
-    minusImageView.setOnClickListener(this);
   }
 
 
