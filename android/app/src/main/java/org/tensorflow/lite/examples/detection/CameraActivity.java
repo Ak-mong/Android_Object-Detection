@@ -103,7 +103,7 @@ public abstract class CameraActivity extends AppCompatActivity
   int currentModel = -1;
   int currentNumThreads = -1;
 
-  ArrayList<String> deviceStrings = new ArrayList<String>();
+  //ArrayList<String> deviceStrings = new ArrayList<String>();
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -112,9 +112,7 @@ public abstract class CameraActivity extends AppCompatActivity
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     setContentView(R.layout.tfe_od_activity_camera);
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayShowTitleEnabled(false);
+    setNumThreads(5);
 
     if (hasPermission()) {
       setFragment();
@@ -122,11 +120,9 @@ public abstract class CameraActivity extends AppCompatActivity
       requestPermission();
     }
 
-    threadsTextView = findViewById(R.id.threads);
-    currentNumThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
-    plusImageView = findViewById(R.id.plus);
-    minusImageView = findViewById(R.id.minus);
-    deviceView = findViewById(R.id.device_list);
+    //threadsTextView = findViewById(R.id.threads);
+    currentNumThreads = Integer.parseInt("5");
+    /*deviceView = findViewById(R.id.device_list);
     deviceStrings.add("CPU");
     deviceStrings.add("GPU");
     deviceStrings.add("NNAPI");
@@ -148,10 +144,11 @@ public abstract class CameraActivity extends AppCompatActivity
     bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
     gestureLayout = findViewById(R.id.gesture_layout);
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
-    modelView = findViewById((R.id.model_list));
-
+    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);*/
     modelStrings = getModelStrings(getAssets(), ASSET_PATH);
+    /*modelView = findViewById((R.id.model_list));
+
+
     modelView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     ArrayAdapter<String> modelAdapter =
             new ArrayAdapter<>(
@@ -216,10 +213,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
     frameValueTextView = findViewById(R.id.frame_info);
     cropValueTextView = findViewById(R.id.crop_info);
-    inferenceTimeTextView = findViewById(R.id.inference_info);
+    inferenceTimeTextView = findViewById(R.id.inference_info);*/
 
-    plusImageView.setOnClickListener(this);
-    minusImageView.setOnClickListener(this);
   }
 
 
@@ -578,7 +573,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
   @Override
   public void onClick(View v) {
-    if (v.getId() == R.id.plus) {
+    /*if (v.getId() == R.id.plus) {
       String threads = threadsTextView.getText().toString().trim();
       int numThreads = Integer.parseInt(threads);
       if (numThreads >= 9) return;
@@ -594,10 +589,10 @@ public abstract class CameraActivity extends AppCompatActivity
       numThreads--;
       threadsTextView.setText(String.valueOf(numThreads));
       setNumThreads(numThreads);
-    }
+    }*/
   }
 
-  protected void showFrameInfo(String frameInfo) {
+  /*protected void showFrameInfo(String frameInfo) {
     frameValueTextView.setText(frameInfo);
   }
 
@@ -607,7 +602,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
   protected void showInference(String inferenceTime) {
     inferenceTimeTextView.setText(inferenceTime);
-  }
+  }*/
 
   protected abstract void updateActiveModel();
   protected abstract void processImage();
