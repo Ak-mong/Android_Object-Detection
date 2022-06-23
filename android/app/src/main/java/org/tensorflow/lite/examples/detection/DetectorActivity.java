@@ -90,7 +90,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
         tracker = new MultiBoxTracker(this);
 
-        final int modelIndex = modelView.getCheckedItemPosition();
+        final int modelIndex = 0;
+                //modelView.getCheckedItemPosition();
         final String modelString = modelStrings.get(modelIndex);
 
         try {
@@ -144,9 +145,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     protected void updateActiveModel() {
         // Get UI information before delegating to background
         final int modelIndex = modelView.getCheckedItemPosition();
-        final int deviceIndex = deviceView.getCheckedItemPosition();
-        String threads = threadsTextView.getText().toString().trim();
-        final int numThreads = Integer.parseInt(threads);
+        final int deviceIndex = 0;
+                //deviceView.getCheckedItemPosition();
+        //String threads = threadsTextView.getText().toString().trim();
+        final int numThreads = Integer.parseInt("5");
 
         handler.post(() -> {
             if (modelIndex == currentModel && deviceIndex == currentDevice
@@ -165,7 +167,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
             // Lookup names of parameters.
             String modelString = modelStrings.get(modelIndex);
-            String device = deviceStrings.get(deviceIndex);
+            String device = "CPU";
+                    //deviceStrings.get(deviceIndex);
 
             LOGGER.i("Changing model to " + modelString + " device " + device);
 
@@ -188,14 +191,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 finish();
             }
 
-
-            if (device.equals("CPU")) {
+            detector.useCPU();
+            /*if (device.equals("CPU")) {
                 detector.useCPU();
             } else if (device.equals("GPU")) {
                 detector.useGpu();
             } else if (device.equals("NNAPI")) {
                 detector.useNNAPI();
-            }
+            }*/
             detector.setNumThreads(numThreads);
 
             int cropSize = detector.getInputSize();

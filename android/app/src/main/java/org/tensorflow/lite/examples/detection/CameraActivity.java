@@ -103,7 +103,7 @@ public abstract class CameraActivity extends AppCompatActivity
   int currentModel = -1;
   int currentNumThreads = -1;
 
-  ArrayList<String> deviceStrings = new ArrayList<String>();
+  //ArrayList<String> deviceStrings = new ArrayList<String>();
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -122,7 +122,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
     //threadsTextView = findViewById(R.id.threads);
     currentNumThreads = Integer.parseInt("5");
-    deviceView = findViewById(R.id.device_list);
+    /*deviceView = findViewById(R.id.device_list);
     deviceStrings.add("CPU");
     deviceStrings.add("GPU");
     deviceStrings.add("NNAPI");
@@ -144,10 +144,11 @@ public abstract class CameraActivity extends AppCompatActivity
     bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
     gestureLayout = findViewById(R.id.gesture_layout);
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
-    modelView = findViewById((R.id.model_list));
-
+    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);*/
     modelStrings = getModelStrings(getAssets(), ASSET_PATH);
+    /*modelView = findViewById((R.id.model_list));
+
+
     modelView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     ArrayAdapter<String> modelAdapter =
             new ArrayAdapter<>(
@@ -210,7 +211,7 @@ public abstract class CameraActivity extends AppCompatActivity
           public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
         });
 
-    /*frameValueTextView = findViewById(R.id.frame_info);
+    frameValueTextView = findViewById(R.id.frame_info);
     cropValueTextView = findViewById(R.id.crop_info);
     inferenceTimeTextView = findViewById(R.id.inference_info);*/
 
