@@ -282,7 +282,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                         computingDetection = false;
 
-                        runOnUiThread(
+                        /*runOnUiThread(
                                 new Runnable() {
                                     @Override
                                     public void run() {
@@ -290,7 +290,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                         showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
                                         showInference(lastProcessingTimeMs + "ms");
                                     }
-                                });
+                                });*/
                     }
                 });
     }
