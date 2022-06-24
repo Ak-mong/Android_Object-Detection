@@ -2,6 +2,10 @@ package org.tensorflow.lite.examples.detection;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     // adapter에 들어갈 list 입니다.
     private ArrayList<Data> listData = new ArrayList<>();
     private Context context;
+
 
     @NonNull
     @Override
@@ -77,15 +82,64 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             certView.setOnClickListener(this);
             imageView.setOnClickListener(this);
         }
-
+        final LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        
         @Override
         public void onClick(View view) {
             if (data.getCertification() == "인증 완료")
                 Toast.makeText(context, "이미 인증 완료된 스팟입니다", Toast.LENGTH_SHORT).show();
             else {
-                Intent intent = new Intent(context, DetectorActivity.class);
-                context.startActivity(intent);
+
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (location != null) {
+                    String provider = location.getProvider();
+                    double lat2 = location.getLatitude();
+                    double lon2 = location.getLongitude();
+                    double lat1 = data.getLat();
+                    double lon1 = data.getLon();
+                    if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < 100) {
+                        Intent intent = new Intent(context, DetectorActivity.class);
+                        context.startActivity(intent);
+                    }
+                    else
+                        Toast.makeText(context, "올바른 장소에서 인증을 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
+                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
             }
         }
+        public String getDistance(double lat1, double lng1, double lat2, double lng2) {
+            double distance;
+            Location locationA = new Location("point A");
+            locationA.setLatitude(lat1);
+            locationA.setLongitude(lng1);
+            Location locationB = new Location("point B");
+            locationB.setLatitude(lat2);
+            locationB.setLongitude(lng2);
+            distance = locationA.distanceTo(locationB);
+            String num = String.format("%.0f", distance);
+            return num;
+        }
+
+        final LocationListener gpsLocationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                // 위치 리스너는 위치정보를 전달할 때 호출되므로 onLocationChanged()메소드 안에 위지청보를 처리를 작업을 구현 해야합니다.
+                String provider = location.getProvider();  // 위치정보
+                double longitude = location.getLongitude(); // 위도
+                double latitude = location.getLatitude(); // 경도
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
     }
 }
