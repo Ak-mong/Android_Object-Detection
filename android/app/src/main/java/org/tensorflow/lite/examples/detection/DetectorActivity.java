@@ -16,6 +16,9 @@
 
 package org.tensorflow.lite.examples.detection;
 
+import static android.os.SystemClock.sleep;
+
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -26,6 +29,7 @@ import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.util.Size;
@@ -79,6 +83,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private MultiBoxTracker tracker;
 
     private BorderedText borderedText;
+
+    public Integer target;
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -271,12 +277,33 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         for (final Classifier.Recognition result : results) {
                             final RectF location = result.getLocation();
                             if (location != null && result.getConfidence() >= minimumConfidence) {
+
                                 canvas.drawRect(location, paint);
 
                                 cropToFrameTransform.mapRect(location);
 
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
+
+                                if(target != -1 && result.getConfidence() > 0.8f && result.getId().equals("0")){ // gps에 의해 받은 index를 "0"대신 넣으면 됨
+                                    Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_SHORT).show();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(getApplicationContext(), CertificationActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
+                                            overridePendingTransition(0, 0);
+                                        }
+                                    }, 3000);
+                                    /*try{
+                                        Thread.sleep(1000);
+                                        onBackPressed();
+                                    }
+                                    catch (InterruptedException e){
+                                        e.printStackTrace();
+                                    }*/
+                                }
                             }
                         }
 
