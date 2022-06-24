@@ -80,9 +80,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(context, DetectorActivity.class);
-            context.startActivity(intent);
-
+            if (data.getCertification() == "인증 완료")
+                Toast.makeText(context, "이미 인증 완료된 스팟입니다", Toast.LENGTH_SHORT).show();
+            else {
+                Intent intent = new Intent(context, DetectorActivity.class);
+                context.startActivity(intent);
+            }
         }
     }
 }

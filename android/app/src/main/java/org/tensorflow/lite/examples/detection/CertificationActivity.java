@@ -38,7 +38,7 @@ public class CertificationActivity extends AppCompatActivity {
         List<String> listCertification = Arrays.asList(
                 "인증 미완료",
                 "인증 미완료",
-                "인증 미완료",
+                "인증 완료",
                 "인증 미완료",
                 "인증 미완료",
                 "인증 미완료",
