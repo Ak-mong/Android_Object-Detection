@@ -3,6 +3,7 @@
     package="org.tensorflow.lite.examples.detection">
 
     <uses-sdk />
+
     <!-- Tell the system this app requires OpenGL ES 3.1. -->
     <uses-feature
         android:glEsVersion="0x00030001"
@@ -27,10 +28,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.ObjectDetection">
-        <activity android:name=".DetectorActivity"
+       
+
+        <activity
+            android:name=".DetectorActivity"
             android:label="@string/tfe_od_app_name"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".CertificationActivity"
             android:label="@string/tfe_od_app_name"
