@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
 
     // adapter에 들어갈 list 입니다.
-    private ArrayList<Data> listData = new ArrayList<>();
+    public ArrayList<Data> listData = new ArrayList<>();
     private Context context;
 
 
@@ -39,7 +39,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
         holder.onBind(listData.get(position));
-
     }
 
     @Override
@@ -48,9 +47,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         return listData.size();
     }
 
+
     void addItem(Data data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
+    }
+
+    void setCert(int i){
+        Data data = listData.get(i);
+        data.setCertification("인증 완료");
+        listData.set(i, data);
+        //notifyDataSetChanged();
     }
 
     // RecyclerView의 핵심인 ViewHolder 입니다.
@@ -86,10 +93,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         
         @Override
         public void onClick(View view) {
+
             if (data.getCertification() == "인증 완료")
                 Toast.makeText(context, "이미 인증 완료된 스팟입니다", Toast.LENGTH_SHORT).show();
             else {
-
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 if (location != null) {
                     String provider = location.getProvider();
@@ -99,13 +106,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     double lon1 = data.getLon();
                     if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < 100) {
                         Intent intent = new Intent(context, DetectorActivity.class);
+                        intent.putExtra("targetI", getAdapterPosition());
                         context.startActivity(intent);
                     }
                     else
                         Toast.makeText(context, "올바른 장소에서 인증을 시도해주세요", Toast.LENGTH_SHORT).show();
                 }
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
-                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
+                //lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
+                //lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
             }
         }
         public String getDistance(double lat1, double lng1, double lat2, double lng2) {

@@ -50,6 +50,7 @@ import org.tensorflow.lite.examples.detection.tflite.DetectorFactory;
 import org.tensorflow.lite.examples.detection.tflite.YoloV5Classifier;
 import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
 
+import org.tensorflow.lite.examples.detection.CertificationActivity;
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
  * objects.
@@ -264,6 +265,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         paint.setStyle(Style.STROKE);
                         paint.setStrokeWidth(2.0f);
 
+                        target = getIntent().getIntExtra("targetI", -1);
+
                         float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
                         switch (MODE) {
                             case TF_OD_API:
@@ -284,18 +287,24 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
-
-                                if(target != -1 && result.getConfidence() > 0.8f && result.getId().equals("0")){ // gps에 의해 받은 index를 "0"대신 넣으면 됨
+                                System.out.println("target is "+ target.toString());
+                                if(target != -1 && result.getConfidence() > 0.8f && result.getId().equals(target.toString())) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
                                     Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_SHORT).show();
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             Intent intent = new Intent(getApplicationContext(), CertificationActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            System.out.println("in if1 target is "+ target.toString());
+                                            ((CertificationActivity)CertificationActivity.context_certi).adapter.setCert(target);
+                                            System.out.println("in if2 target is "+ target.toString());
+                                            target = -1;
+                                            System.out.println("in if3 target is "+ target.toString());
                                             startActivity(intent);
                                             overridePendingTransition(0, 0);
                                         }
                                     }, 3000);
+                                }
                                     /*try{
                                         Thread.sleep(1000);
                                         onBackPressed();
@@ -305,7 +314,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                     }*/
                                 }
                             }
-                        }
 
                         tracker.trackResults(mappedRecognitions, currTimestamp);
                         trackingOverlay.postInvalidate();

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
@@ -17,7 +18,9 @@ import java.util.List;
 public class CertificationActivity extends AppCompatActivity {
 
     private Button btn_move;
-    private RecyclerAdapter adapter;
+    public static Context context_certi;
+    public RecyclerAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,6 @@ public class CertificationActivity extends AppCompatActivity {
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
 
         if(permissionCheck == PackageManager.PERMISSION_DENIED){ //위치 권한 확인
-
             //위치 권한 요청
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
@@ -46,7 +48,7 @@ public class CertificationActivity extends AppCompatActivity {
 
     private void getData() {
         // 임의의 데이터입니다.
-        List<String> listTitle = Arrays.asList("북문", "정문", "석탑", "일청담", "test", "test", "test", "test", "test");
+        List<String> listTitle = Arrays.asList("정문", "북문", "석탑", "일청담", "test", "test", "test", "test", "test");
         List<String> listCertification = Arrays.asList(
                 "인증 미완료",
                 "인증 미완료",
@@ -59,8 +61,8 @@ public class CertificationActivity extends AppCompatActivity {
                 "인증 미완료"
         );
         List<Integer> listResId = Arrays.asList(
-                R.drawable.north,
                 R.drawable.front,
+                R.drawable.north,
                 R.drawable.top,
                 R.drawable.onebluedam,
                 R.drawable.caret,
@@ -71,8 +73,8 @@ public class CertificationActivity extends AppCompatActivity {
         );
 
         List<Double> listLat = Arrays.asList(
+                35.835265,//35.88517,
                 35.8919,
-                35.88517,
                 35.835265,
                 35.835265,
                 35.3245,
@@ -82,10 +84,9 @@ public class CertificationActivity extends AppCompatActivity {
                 1.2345
 
         );
-
         List<Double> listLong = Arrays.asList(
+                128.682495,//128.61447,
                 128.610129,
-                128.61447,
                 128.682495,
                 128.682495,
                 125.324,
@@ -94,7 +95,6 @@ public class CertificationActivity extends AppCompatActivity {
                 130.59,
                 150.2345
         );
-
         for (int i = 0; i < listTitle.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
             Data data = new Data();
@@ -112,4 +112,5 @@ public class CertificationActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 }
+
 
