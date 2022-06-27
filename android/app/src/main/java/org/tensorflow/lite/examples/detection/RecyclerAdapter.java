@@ -20,9 +20,12 @@ import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
 
+
     // adapter에 들어갈 list 입니다.
     public ArrayList<Data> listData = new ArrayList<>();
     private Context context;
+
+    private GpsTracker gpsTracker;
 
     @NonNull
     @Override
@@ -92,19 +95,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             certView.setOnClickListener(this);
             imageView.setOnClickListener(this);
         }
-        final LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         
         @Override
         public void onClick(View view) {
+            gpsTracker = new GpsTracker(context);
+
+            double lat2 = gpsTracker.getLatitude();
+            double lon2 = gpsTracker.getLongitude();
 
             if (data.getCertification() == "인증 완료")
                 Toast.makeText(context, "이미 인증 완료된 스팟입니다", Toast.LENGTH_SHORT).show();
             else {
-                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                if (location != null) {
-                    String provider = location.getProvider();
-                    double lat2 = location.getLatitude();
-                    double lon2 = location.getLongitude();
+                if (gpsTracker != null) {
+                    System.out.println("lat and lon : " + lat2 + " " + lon2);
                     double lat1 = data.getLat();
                     double lon1 = data.getLon();
                     if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < 100) {
