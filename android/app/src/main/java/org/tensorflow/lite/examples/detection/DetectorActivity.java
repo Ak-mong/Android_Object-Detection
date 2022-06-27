@@ -30,6 +30,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
 import android.util.Size;
@@ -290,20 +291,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 System.out.println("target is "+ target.toString());
                                 if(target != -1 && result.getConfidence() > 0.8f && result.getId().equals(target.toString())) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
                                     Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_SHORT).show();
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
                                             Intent intent = new Intent(getApplicationContext(), CertificationActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             System.out.println("in if1 target is "+ target.toString());
-                                            ((CertificationActivity)CertificationActivity.context_certi).adapter.setCert(target);
-                                            System.out.println("in if2 target is "+ target.toString());
-                                            target = -1;
-                                            System.out.println("in if3 target is "+ target.toString());
+                                            ((CertificationActivity)CertificationActivity.context_certi).changeCert(target);
                                             startActivity(intent);
                                             overridePendingTransition(0, 0);
-                                        }
-                                    }, 3000);
+
+
                                 }
                                     /*try{
                                         Thread.sleep(1000);

@@ -24,7 +24,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     public ArrayList<Data> listData = new ArrayList<>();
     private Context context;
 
-
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,12 +52,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         listData.add(data);
     }
 
-    void setCert(int i){
+    public void setCert(int i){
         Data data = listData.get(i);
+        System.out.println("cert is "+ data.getCertification());
         data.setCertification("인증 완료");
+        System.out.println("after cert is "+ data.getCertification());
         listData.set(i, data);
+        System.out.println("list data cert is "+ listData.get(i).getCertification());
         //notifyDataSetChanged();
     }
+
 
     // RecyclerView의 핵심인 ViewHolder 입니다.
     // 여기서 subView를 setting 해줍니다.
