@@ -70,7 +70,6 @@ public class CertificationActivity extends AppCompatActivity {
     private Button btn_move;
     public static Context context_certi;
     public RecyclerAdapter adapter;
-    public Integer check=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,18 +88,10 @@ public class CertificationActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
-
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
 
-        check = 0;
-
         getData();
-
-        check = 1;
-        System.out.println("after getdata check is " + check.toString());
-
 
         context_certi = this;
     }
