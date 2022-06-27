@@ -290,15 +290,13 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 mappedRecognitions.add(result);
                                 System.out.println("target is "+ target.toString());
                                 if(target != -1 && result.getConfidence() > 0.8f && result.getId().equals(target.toString())) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
-                                    Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(getApplicationContext(), CertificationActivity.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            System.out.println("in if1 target is "+ target.toString());
-                                            ((CertificationActivity)CertificationActivity.context_certi).changeCert(target);
-                                            startActivity(intent);
-                                            overridePendingTransition(0, 0);
-
-
+                                    Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getApplicationContext(), CertificationActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    System.out.println("in if1 target is "+ target.toString());
+                                    ((CertificationActivity)CertificationActivity.context_certi).changeCert(target);
+                                    startActivity(intent);
+                                    overridePendingTransition(0, 0);
                                 }
                                     /*try{
                                         Thread.sleep(1000);
