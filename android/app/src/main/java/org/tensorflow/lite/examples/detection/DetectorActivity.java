@@ -288,8 +288,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
-                                System.out.println("target is "+ target.toString());
-                                if(target != -1 && result.getConfidence() > 0.8f && result.getId().equals(target.toString())) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
+                                //System.out.println("target is "+ target.toString() + "gettitle : " + result.getTitle() + "confi : " + result.getConfidence());
+                                if(target != -1 && result.getConfidence() > 0.8f && result.getDetectedClass() == target) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
                                     //Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), CertificationActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

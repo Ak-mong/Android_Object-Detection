@@ -47,7 +47,7 @@ public class CertificationActivity extends AppCompatActivity {
 
     static List<Double> listLat = Arrays.asList(
             35.835292,//35.88517,
-            35.8919,
+            35.835265,//35.8919,
             35.835265,
             35.835265,
             35.3245,
@@ -59,7 +59,7 @@ public class CertificationActivity extends AppCompatActivity {
     );
     static List<Double> listLong = Arrays.asList(
             128.682395,//128.61447
-            128.610129,
+            128.682495,//128.610129,
             128.682495,
             128.682495,
             125.324,
@@ -140,6 +140,8 @@ public class CertificationActivity extends AppCompatActivity {
             }
         }
     }
+
+    public String getTitle(int i) { return listTitle.get(i); }
 
 }
 

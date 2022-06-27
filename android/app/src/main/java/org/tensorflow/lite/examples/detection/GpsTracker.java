@@ -55,7 +55,7 @@ public class GpsTracker extends Service implements LocationListener {
                 else return null;
 
                 if (isGPSEnabled) {
-                    if (location == null) {
+                    //if (location == null) {
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                         if (locationManager != null) {
                             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -64,13 +64,12 @@ public class GpsTracker extends Service implements LocationListener {
                                 longitude = location.getLongitude();
                             }
                         }
-                    }
+                    //}
                 }
 
                 if (isNetworkEnabled) {
-                    if (location == null){
+                    //if (location == null){
                         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-
                         if (locationManager != null) {
                             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                             if (location != null) {
@@ -78,7 +77,7 @@ public class GpsTracker extends Service implements LocationListener {
                                 longitude = location.getLongitude();
                             }
                         }
-                    }
+                    //}
                 }
 
             }
@@ -123,17 +122,14 @@ public class GpsTracker extends Service implements LocationListener {
     }
 
     @Override
-    public IBinder onBind(Intent arg0)
-    {
+    public IBinder onBind(Intent arg0) {
         return null;
     }
-
 
     public void stopUsingGPS() {
         if(locationManager != null) {
             locationManager.removeUpdates(GpsTracker.this);
         }
     }
-
 
 }
