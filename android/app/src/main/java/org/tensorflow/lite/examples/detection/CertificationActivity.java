@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
@@ -78,11 +80,17 @@ public class CertificationActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
+        int d_flag = getIntent().getIntExtra("d_flag", -1);
+
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
 
         if(permissionCheck == PackageManager.PERMISSION_DENIED){ //위치 권한 확인
             //위치 권한 요청
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
+
+        if(d_flag == 1){
+            Toast.makeText(getApplicationContext(), "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -119,6 +127,20 @@ public class CertificationActivity extends AppCompatActivity {
     public void changeCert(int i){
         listCertification.set(i, "인증 완료");
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==2) {
+            if(resultCode==RESULT_OK) {
+                Toast.makeText(CertificationActivity.this, "result ok!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(CertificationActivity.this, "result cancle!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }
 
 
