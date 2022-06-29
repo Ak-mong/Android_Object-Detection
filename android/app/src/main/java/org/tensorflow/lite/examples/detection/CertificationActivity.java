@@ -11,6 +11,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -46,29 +48,30 @@ public class CertificationActivity extends AppCompatActivity {
     );
 
     static List<Double> listLat = Arrays.asList(
-            35.835292,//35.88517,
-            35.835265,//35.886786
-            35.835265,//35.8919,
-            35.835265,//35.892548
-            35.835265,//35.889417
-            35.835265,//35.888488
+            35.88517,//35.835292,//35.88517,
+            35.886786,//35.835265,//35.886786
+            35.8919,//,35.835265,//35.8919,
+            35.892548,//35.835265,//35.892548
+            35.889417,//35.835265,//35.889417
+            35.888488,//35.835265,//35.888488
             10.3244,
             10.32442,
             1.2345
 
     );
     static List<Double> listLong = Arrays.asList(
-            128.682395,//128.61447
-            128.682495,//128.608874
-            128.682495,//128.610129,
-            128.682495,//128.614867
-            128.682495,//128.612461
-            128.682495,//128.604296
+            128.61447,//128.682395,//128.61447
+            128.608874,//128.682495,//128.608874
+            128.610129,//128.682495,//128.610129,
+            128.614867,//128.682495,//128.614867
+            128.612461,//128.682495,//128.612461
+            128.604296,//128.682495,//128.604296
             129.324,
             130.59,
             150.2345
     );
 
+    public GpsTracker gpsTracker;
     public static Context context_certi;
     public RecyclerAdapter adapter;
 
@@ -77,6 +80,9 @@ public class CertificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_certification);
 
+        gpsTracker = new GpsTracker(this);
+
+        System.out.println("onCreate "+ gpsTracker.getLatitude() + " " + gpsTracker.getLongitude());
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
         int d_flag = getIntent().getIntExtra("d_flag", -1);
@@ -104,8 +110,6 @@ public class CertificationActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        // 임의의 데이터입니다.
-
         for (int i = 0; i < listTitle.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
             Data data = new Data();
@@ -118,7 +122,6 @@ public class CertificationActivity extends AppCompatActivity {
             // 각 값이 들어간 data를 adapter에 추가합니다.
             adapter.addItem(data);
         }
-
         // adapter의 값이 변경되었다는 것을 알려줍니다.
         adapter.notifyDataSetChanged();
     }
@@ -140,8 +143,9 @@ public class CertificationActivity extends AppCompatActivity {
         }
     }
 
-    public String getTitle(int i) { return listTitle.get(i); }
-
+    public GpsTracker getGpsTracker() {
+        return gpsTracker;
+    }
 }
 
 

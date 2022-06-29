@@ -26,8 +26,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     public ArrayList<Data> listData = new ArrayList<>();
     private Context context;
 
-    private GpsTracker gpsTracker;
-
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -88,8 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         
         @Override
         public void onClick(View view) {
-            gpsTracker = new GpsTracker(context);
-
+            GpsTracker gpsTracker = ((CertificationActivity)CertificationActivity.context_certi).getGpsTracker();
             double lat2 = gpsTracker.getLatitude();
             double lon2 = gpsTracker.getLongitude();
 
@@ -100,9 +97,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     System.out.println("lat and lon : " + lat2 + " " + lon2);
                     double lat1 = data.getLat();
                     double lon1 = data.getLon();
+
                     if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < 100) {
                         Intent intent = new Intent(context, DetectorActivity.class);
                         intent.putExtra("targetI", getAdapterPosition());
+                        gpsTracker.stopUsingGPS();
                         context.startActivity(intent);
                     }
                     else
