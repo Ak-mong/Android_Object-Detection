@@ -68,7 +68,7 @@ public class GpsTracker extends Service implements LocationListener {
                 }
 
                 if (isNetworkEnabled) {
-                    //if (location == null){
+                    if (location == null){
                         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                         if (locationManager != null) {
                             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -77,7 +77,7 @@ public class GpsTracker extends Service implements LocationListener {
                                 longitude = location.getLongitude();
                             }
                         }
-                    //}
+                    }
                 }
 
             }
