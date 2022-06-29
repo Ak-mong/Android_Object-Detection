@@ -21,25 +21,25 @@ import java.util.List;
 
 public class CertificationActivity extends AppCompatActivity {
 
-    static List<String> listTitle = Arrays.asList("정문", "북문", "석탑", "일청담", "test", "test", "test", "test", "test");
+    static List<String> listTitle = Arrays.asList("정문", "북문", "석탑", "백호관", "테크노문", "안내문", "당근", "test", "test");
     static List<String> listCertification = Arrays.asList(
             "인증 미완료",
             "인증 미완료",
+            "인증 미완료",
+            "인증 미완료",
+            "인증 미완료",
+            "인증 미완료",
             "인증 완료",
-            "인증 미완료",
-            "인증 미완료",
-            "인증 미완료",
-            "인증 미완료",
-            "인증 미완료",
+            "인증 완료",
             "인증 미완료"
     );
     static List<Integer> listResId = Arrays.asList(
             R.drawable.front,
             R.drawable.north,
-            R.drawable.top,
-            R.drawable.onebluedam,
-            R.drawable.caret,
-            R.drawable.caret,
+            R.drawable.tower,
+            R.drawable.west,
+            R.drawable.tech,
+            R.drawable.nine,
             R.drawable.caret,
             R.drawable.caret,
             R.drawable.caret
@@ -48,10 +48,10 @@ public class CertificationActivity extends AppCompatActivity {
     static List<Double> listLat = Arrays.asList(
             35.835292,//35.88517,
             35.835265,//35.8919,
-            35.835265,
-            35.835265,
-            35.3245,
-            10.324,
+            35.835265,//35.889417
+            35.835265,//35.888488
+            35.835265,//35.892548
+            35.835265,//35.886786
             10.3244,
             10.32442,
             1.2345
@@ -60,16 +60,15 @@ public class CertificationActivity extends AppCompatActivity {
     static List<Double> listLong = Arrays.asList(
             128.682395,//128.61447
             128.682495,//128.610129,
-            128.682495,
-            128.682495,
-            125.324,
-            100.234,
+            128.682495,//128.612461
+            128.682495,//128.604296
+            128.682495,//128.614867
+            128.682495,//128.608874
             129.324,
             130.59,
             150.2345
     );
 
-    private Button btn_move;
     public static Context context_certi;
     public RecyclerAdapter adapter;
 
