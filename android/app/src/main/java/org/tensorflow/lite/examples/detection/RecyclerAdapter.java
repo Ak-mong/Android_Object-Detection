@@ -56,17 +56,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         listData.add(data);
     }
 
-    public void setCert(int i){
-        Data data = listData.get(i);
-        System.out.println("cert is "+ data.getCertification());
-        data.setCertification("인증 완료");
-        System.out.println("after cert is "+ data.getCertification());
-        listData.set(i, data);
-        System.out.println("list data cert is "+ listData.get(i).getCertification());
-        //notifyDataSetChanged();
-    }
-
-
     // RecyclerView의 핵심인 ViewHolder 입니다.
     // 여기서 subView를 setting 해줍니다.
     class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -122,6 +111,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                 //lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
                 //lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
             }
+            //gpsTracker.locationManager.removeUpdates(gpsTracker);
         }
         public String getDistance(double lat1, double lng1, double lat2, double lng2) {
             double distance;
