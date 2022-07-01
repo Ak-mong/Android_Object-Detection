@@ -10,7 +10,7 @@ android {
     }
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId 'com.flash21.For_wooSung'
+        applicationId 'org.tensorflow.lite.examples'
         minSdk 26
         targetSdk 32
         versionCode 2
@@ -32,6 +32,12 @@ android {
 }
 
 dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'org.tensorflow:tensorflow-lite:2.4.0'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.4.0'
 
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
@@ -58,16 +64,6 @@ dependencies {
     implementation 'com.google.zxing:core:3.4.1'
 
     //AutoTest
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'org.tensorflow:tensorflow-lite:2.4.0'
-    implementation 'org.tensorflow:tensorflow-lite-gpu:2.4.0'
 
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
-    androidTestImplementation 'com.google.truth:truth:1.0.1'
 
 }

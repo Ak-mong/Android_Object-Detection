@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1067373796318:android:65f79d1b458c7913de9b4f",
         "android_client_info": {
-          "package_name": "com.flash21.For_wooSung"
+          "package_name": "org.tensorflow.lite.examples"
         }
       },
       "oauth_client": [

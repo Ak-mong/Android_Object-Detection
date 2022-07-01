@@ -37,12 +37,4 @@
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">12sp</item>
     </style>
-
-    <style name="AppTheme.ObjectDetection" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#B2FF0000</item>
-        <item name="colorPrimaryDark">#FF0000</item>
-        <item name="colorAccent">@color/tfe_color_accent</item>
-    </style>
-
 </resources>

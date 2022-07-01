@@ -29,8 +29,7 @@ import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.flash21.For_wooSung.R;
+import org.tensorflow.lite.examples.R;
 
 public class MainActivity extends AppCompatActivity {
 

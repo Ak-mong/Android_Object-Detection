@@ -61,8 +61,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import org.tensorflow.lite.examples.detection.customview.AutoFitTextureView;
 import org.tensorflow.lite.examples.detection.env.Logger;
-
-import com.flash21.For_wooSung.R;
+import org.tensorflow.lite.examples.R;
 
 @SuppressLint("ValidFragment")
 public class CameraConnectionFragment extends Fragment {

@@ -3,14 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/YOLOv5/For_wooSung/app/src/main/res/drawable-v24/item_selector.xml" value="0.123" />
-        <entry key="..\:/YOLOv5/For_wooSung/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
-        <entry key="..\:/YOLOv5/For_wooSung/app/src/main/res/layout/activity_main_tf.xml" value="0.18489583333333334" />
-        <entry key="..\:/YOLOv5/For_wooSung/app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.36614583333333334" />
-        <entry key="..\:/YOLOv5/For_wooSung/app/src/main/res/layout/deviceview_row.xml" value="0.11055276381909548" />
-        <entry key="..\:/YOLOv5/For_wooSung/app/src/main/res/layout/fragment_1.xml" value="0.36614583333333334" />
-        <entry key="..\:/YOLOv5/For_wooSung/app/src/main/res/layout/tfe_od_layout_bottom_sheet.xml" value="0.18489583333333334" />
-        <entry key="..\:/YOLOv5/For_wooSung/app/src/main/res/menu/bottom_menu.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/drawable/bottom_sheet_bg.xml" value="0.2985" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/activity_certification.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/activity_main.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/activity_main_tf.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/custom_barcode_scanner.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/deviceview_row.xml" value="0.1875" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/fail.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/fragment_1.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/listview_row.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/qrcode_view.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/recyclerview_item.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/splash.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/tfe_od_layout_bottom_sheet.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/woo/Desktop/YR/source/For_wooSung-master/For_wooSung-master/app/src/main/res/layout/toast_custom.xml" value="0.358695652173913" />
         <entry key="..\:/android_project/For_WooSung_project/app/src/main/res/layout/activity_agree.xml" value="0.36614583333333334" />
         <entry key="..\:/android_project/For_WooSung_project/app/src/main/res/layout/activity_icemain.xml" value="0.36614583333333334" />
         <entry key="..\:/android_project/For_WooSung_project/app/src/main/res/layout/custom_barcode_scanner.xml" value="0.24895833333333334" />

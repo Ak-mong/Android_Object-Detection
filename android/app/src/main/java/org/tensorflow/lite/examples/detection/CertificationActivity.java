@@ -20,8 +20,7 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
-
-import com.flash21.For_wooSung.R;
+import org.tensorflow.lite.examples.R;
 
 public class CertificationActivity extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class CertificationActivity extends AppCompatActivity {
             "인증 미완료",
             "인증 미완료",
             "인증 완료",
-            "인증 미완료",
+            "인증 완료",
             "인증 미완료"
     );
     static List<Integer> listResId = Arrays.asList(
@@ -56,8 +55,8 @@ public class CertificationActivity extends AppCompatActivity {
             35.892548,//35.835265,//35.892548
             35.889417,//35.835265,//35.889417
             35.888488,//35.835265,//35.888488
-            35.835265,
-            35.835265,
+            10.3244,
+            10.32442,
             1.2345
 
     );
@@ -68,8 +67,8 @@ public class CertificationActivity extends AppCompatActivity {
             128.614867,//128.682495,//128.614867
             128.612461,//128.682495,//128.612461
             128.604296,//128.682495,//128.604296
-            128.682495,
-            128.682495,
+            129.324,
+            130.59,
             150.2345
     );
 
