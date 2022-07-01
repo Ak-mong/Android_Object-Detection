@@ -52,6 +52,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.IOException;
@@ -60,6 +61,8 @@ import java.util.ArrayList;
 
 import org.tensorflow.lite.examples.detection.env.ImageUtils;
 import org.tensorflow.lite.examples.detection.env.Logger;
+
+import com.flash21.For_wooSung.R;
 
 public abstract class CameraActivity extends AppCompatActivity
     implements OnImageAvailableListener,

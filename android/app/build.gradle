@@ -1,68 +1,73 @@
-apply plugin: 'com.android.application'
-apply plugin: 'de.undercouch.download'
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
-    defaultConfig {
-        applicationId "org.tensorflow.lite.examples.detection"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
-        ndk {
-            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
-        }
+    compileSdk 32
+    buildFeatures {
+        viewBinding = true
     }
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId 'com.flash21.For_wooSung'
+        minSdk 26
+        targetSdk 32
+        versionCode 2
+        versionName "1.0.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    aaptOptions {
-        noCompress "tflite"
-    }
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
-    }
-    lintOptions {
-        abortOnError false
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
-// import DownloadModels task
-project.ext.ASSET_DIR = projectDir.toString() + '/src/main/assets'
-project.ext.TMP_DIR = project.buildDir.toString() + '/downloads'
-
-// Download default models; if you wish to use your own models then
-// place them in the "assets" directory and comment out this line.
-//apply from: "download_model.gradle"
-
-//apply from: 'download_model.gradle'
-
 dependencies {
-//    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-//    implementation files('bin/gdbserver')
+
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation platform('com.google.firebase:firebase-bom:29.2.1')
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
+    implementation 'com.google.firebase:firebase-core:20.1.2'
+    implementation 'com.google.firebase:firebase-messaging:23.0.2'
+
+    implementation "net.gotev:cookie-store:1.5.0"
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'com.google.zxing:core:3.4.1'
+
+    //AutoTest
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'org.tensorflow:tensorflow-lite:2.4.0'
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.4.0'
-//    implementation 'org.tensorflow:tensorflow-lite-select-tf-ops:2.3.0'
-//    implementation 'org.tensorflow:tensorflow-lite:2.2.0'
-//    implementation 'org.tensorflow:tensorflow-lite-gpu:2.2.0'
-//    implementation 'org.tensorflow:tensorflow-lite:1.14.0'
-//    implementation(name:'tensorflow-lite', ext:'aar')
-//    implementation(name:'tensorflow-lite-gpu', ext:'aar')
 
-//    implementation 'org.tensorflow:tensorflow-lite-gpu:1.14.0'
-//    implementation 'org.tensorflow:tensorflow-lite:0.0.0-gpu-experimental'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.code.gson:gson:2.8.6'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.google.truth:truth:1.0.1'
+
 }

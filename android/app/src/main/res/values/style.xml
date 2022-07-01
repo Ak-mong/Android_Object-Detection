@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"> <!-- 액션바(타이틀바) 제거 -->
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FFFF</item> <!-- 액션바(타이틀바)의 색상 -->
+        <item name="colorPrimaryDark">#000</item> <!-- 상태바(네비게이션바)의 색상 -->
+        <!--  <item name="android:windowFullscreen">true</item>  상태바 없애기 -->
+        <item name="colorAccent">#0099ff</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+
+        <!--옵션 메뉴 버튼 색상 스타일-->
+    </style>
+
+    <style name="bottomDialog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="bottomSheetStyle">@style/bottomSheetTheme</item>
+    </style>
+    <style name="bottomSheetTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TransparentBottomSheetDialogFragmentChild</item>
+    </style>
+    <style name="TransparentBottomSheetDialogFragmentChild" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_radius</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.ObjectDetection" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#B2FF0000</item>
+        <item name="colorPrimaryDark">#FF0000</item>
+        <item name="colorAccent">@color/tfe_color_accent</item>
+    </style>
+
+</resources>

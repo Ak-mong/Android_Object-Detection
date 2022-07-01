@@ -52,6 +52,7 @@ import org.tensorflow.lite.examples.detection.tflite.YoloV5Classifier;
 import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
 
 import org.tensorflow.lite.examples.detection.CertificationActivity;
+import com.flash21.For_wooSung.R;
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
  * objects.
@@ -87,6 +88,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private BorderedText borderedText;
 
     public Integer target;
+
+    private final float MIN_CONF = 0.8f;
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -142,7 +145,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     public void drawCallback(final Canvas canvas) {
                         tracker.draw(canvas);
                         if (isDebug()) {
-                            tracker.drawDebug(canvas);
+                                tracker.drawDebug(canvas);
                         }
                     }
                 });
@@ -288,8 +291,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
-                                if(target != -1 && result.getConfidence() > 0.8f && result.getDetectedClass() == target) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
-                                    System.out.println("target is "+ target.toString() + "gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
+                                if(target != -1 && result.getConfidence() > MIN_CONF && result.getDetectedClass() == target) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
+                                    Log.d("In_Identification", "target : " + target + " gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
+                                    //System.out.println("target is "+ target.toString() + "gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
                                     //Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), CertificationActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

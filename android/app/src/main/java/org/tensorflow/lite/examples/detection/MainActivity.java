@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.flash21.For_wooSung.R;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.3f;

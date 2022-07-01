@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1067373796318",
+    "project_id": "For_wooSung",
+    "storage_bucket": "For_wooSung.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067373796318:android:65f79d1b458c7913de9b4f",
+        "android_client_info": {
+          "package_name": "com.flash21.For_wooSung"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067373796318-3t2f7ki86nfbo2jau3j1v4s28muhtui6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDJBGrhVnfXQkD6gJBK2wXbL1-6fBQWL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067373796318-3t2f7ki86nfbo2jau3j1v4s28muhtui6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
