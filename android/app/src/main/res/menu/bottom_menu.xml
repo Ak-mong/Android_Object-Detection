@@ -21,7 +21,7 @@
     <item
         android:id="@+id/item4"
         android:enabled="true"
-        android:icon="@drawable/qrcode"
+        android:icon="@drawable/ic_action_name"
         android:iconTint="@color/black"
-        android:title="QR"/>
+        android:title="인증하기"/>
 </menu>
