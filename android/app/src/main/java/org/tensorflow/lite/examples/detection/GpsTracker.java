@@ -50,28 +50,10 @@ public class GpsTracker extends Service implements LocationListener {
                     ;
                 } else return null;
                 if (isNetworkEnabled) {
-                    //if (location == null){
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-//                    if (locationManager != null) {
-//                        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//                        if (location != null) {
-//                            latitude = location.getLatitude();
-//                            longitude = location.getLongitude();
-//                        }
-//                    }
-                    //}
                 }
                 if (isGPSEnabled) {
-                    //if (location == null) {
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-//                    if (locationManager != null) {
-//                        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//                        if (location != null) {
-//                            latitude = location.getLatitude();
-//                            longitude = location.getLongitude();
-//                        }
-//                    }
-                    //}
                 }
             }
         }

@@ -1,8 +1,6 @@
 package org.tensorflow.lite.examples.detection;
 
-import static android.app.Activity.RESULT_OK;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,19 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
@@ -61,12 +51,12 @@ public class CertificationFragment extends Fragment {
 
     // 인증대상의 위도정보 리스트
     static List<Double> listLat = Arrays.asList(
-            35.88517,//35.88517,
-            35.886786,//35.886786
-            35.8919,//35.8919,
-            35.892548,//35.892548
-            35.889417,//35.889417
-            35.888488,//35.888488
+            35.88517,
+            35.886786,
+            35.8919,
+            35.892548,
+            35.889417,
+            35.888488,
             35.835265,
             35.835265,
             1.2345
@@ -74,12 +64,12 @@ public class CertificationFragment extends Fragment {
 
     // 인증대상의 경도정보 리스트
     static List<Double> listLong = Arrays.asList(
-            128.61447,//128.61447
-            128.608874,//128.608874
-            128.610129,//128.610129,
-            128.614867,//128.614867
-            128.612461,//128.612461
-            128.604296,//128.604296
+            128.61447,
+            128.608874,
+            128.610129,
+            128.614867,
+            128.612461,
+            128.604296,
             128.682495,
             128.682495,
             150.2345

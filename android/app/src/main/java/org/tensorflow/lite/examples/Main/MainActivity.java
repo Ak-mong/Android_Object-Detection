@@ -1,23 +1,17 @@
 package org.tensorflow.lite.examples.Main;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import org.tensorflow.lite.examples.Common.BaseActivity;
@@ -31,7 +25,6 @@ import org.tensorflow.lite.examples.detection.GpsTracker;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 
 public class MainActivity extends BaseActivity {
@@ -67,7 +60,7 @@ public class MainActivity extends BaseActivity {
         bottomNavigationView = findViewById(R.id.bottomNavi);
 
         gpsTracker = new GpsTracker(this);
-        System.out.println("onCreate "+ gpsTracker.getLatitude() + " " + gpsTracker.getLongitude());
+        Log.d("initiate","onCreate " + gpsTracker.getLatitude() + " " + gpsTracker.getLongitude());
 
         context_certi = this;
 
@@ -118,17 +111,6 @@ public class MainActivity extends BaseActivity {
                     loadFragment(new CertificationFragment());
                     bottomMenu = "menu3";
                     break;
-//                    Intent intent = new Intent(this, CertificationActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(intent);
-//                    overridePendingTransition(0, 0);
-//                    IntentIntegrator integrator = new IntentIntegrator(this);
-//                    integrator.setCaptureActivity(QR_View.class);
-//                    integrator.initiateScan();
-//                    Intent QRview = new Intent(this, QR_View.class);
-//                    startActivity(QRview);
-//                    launcher.launch(QRview);
-//                    break;
             }
             return true;
         });
@@ -180,35 +162,6 @@ public class MainActivity extends BaseActivity {
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(QR_View.class);
         integrator.initiateScan();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == Activity.RESULT_OK) {
-//            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-//            String ScanResult = result.getContents();
-
-            int d_flag = data.getIntExtra("d_flag", -1);
-            int checked_target = data.getIntExtra("checked_target", -1);
-
-            Bundle bundle = new Bundle();
-            Fragment mapPage = new CertificationFragment();
-            bottomMenu = "menu3";
-            mapPage.setArguments(bundle);
-//            ((mapPage) getSupportFragmentManager().findFragmentByTag("mapPage")).changeCert(checked_target);
-            Toast.makeText(this, "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-            loadFragment(mapPage);
-            bottomNavigationView.getMenu().findItem(R.id.item4).setChecked(true);
-
-        }
-        else return;
-
-//        Intent intent = new Intent();
-//        intent.putExtra("result",result.getContents());
-//        setResult(RESULT_OK, intent);
-
     }
 
     public GpsTracker getGpsTracker() {

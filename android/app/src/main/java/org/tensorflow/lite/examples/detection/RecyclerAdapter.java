@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +102,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             else {
                 // 인증대상의 위치정보 받아옴 (lat1, lon1)
                 if (gpsTracker != null) {
-                    System.out.println("lat and lon : " + lat2 + " " + lon2);
+                    Log.d("test present GPS","경도는 " + lat2 + " ,위도는 " + lon2);
                     double lat1 = data.getLat();
                     double lon1 = data.getLon();
 

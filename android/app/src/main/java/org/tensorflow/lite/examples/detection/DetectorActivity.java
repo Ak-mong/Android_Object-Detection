@@ -52,7 +52,6 @@ import org.tensorflow.lite.examples.detection.tflite.DetectorFactory;
 import org.tensorflow.lite.examples.detection.tflite.YoloV5Classifier;
 import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
 import org.tensorflow.lite.examples.R;
-
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
  * objects.
@@ -290,44 +289,38 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
                                 if(target != -1 && result.getConfidence() > 0.8f && result.getDetectedClass() == target) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
-                                    System.out.println("target is "+ target.toString() + "gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
-//                                    Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_LONG).show();
+                                    Log.d("detect","target is "+ target.toString() + "gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                                    Intent intent = new Intent();
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     intent.putExtra("d_flag", 1);
                                     intent.putExtra("checked_target", target);
-                                    System.out.println("in if1 target is "+ target.toString());
-//                                    setResult(RESULT_OK, intent);
-//                                    finish();
-//                                    ((CertificationFragment)CertificationFragment.context_certi).changeCert(target);
                                     startActivity(intent);
                                     overridePendingTransition(0, 0);
                                 }
-                                    /*try{
-                                        Thread.sleep(1000);
-                                        onBackPressed();
-                                    }
-                                    catch (InterruptedException e){
-                                        e.printStackTrace();
-                                    }*/
-                                }
+//                                try{
+//                                    Thread.sleep(1000);
+//                                    onBackPressed();
+//                                }
+//                                catch (InterruptedException e){
+//                                    e.printStackTrace();
+//                                }
                             }
+                        }
 
                         tracker.trackResults(mappedRecognitions, currTimestamp);
                         trackingOverlay.postInvalidate();
 
                         computingDetection = false;
 
-                        /*runOnUiThread(
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        showFrameInfo(previewWidth + "x" + previewHeight);
-                                        showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
-                                        showInference(lastProcessingTimeMs + "ms");
-                                    }
-                                });*/
+//                        runOnUiThread(
+//                                new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        showFrameInfo(previewWidth + "x" + previewHeight);
+//                                        showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
+//                                        showInference(lastProcessingTimeMs + "ms");
+//                                    }
+//                                });
                     }
                 });
     }
@@ -358,7 +351,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         runInBackground(() -> detector.setNumThreads(numThreads));
     }
 
-    @Override
     public void onBackPressed(){
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
