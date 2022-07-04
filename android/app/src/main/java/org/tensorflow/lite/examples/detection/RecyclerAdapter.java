@@ -24,10 +24,9 @@ import org.tensorflow.lite.examples.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
 
-
     public static final int REQUEST_CODE = 100;
 
-    // adapter에 들어갈 list 입니다.
+    // adapter에 들어갈 list(CertificationFragment 내의 리스트와 연결)
     public ArrayList<Data> listData = new ArrayList<>();
     private Context context;
 
@@ -52,7 +51,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         // RecyclerView의 총 개수 입니다.
         return listData.size();
     }
-
 
     void addItem(Data data) {
         // 외부에서 item을 추가시킬 함수입니다.
@@ -88,21 +86,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             certView.setOnClickListener(this);
             imageView.setOnClickListener(this);
         }
-        
+
+        // 리스트에서 인증대상 클릭시 동작
         @Override
         public void onClick(View view) {
+            // GPS를 이용해 현재 위치정보 받아옴 (lat2, lon2)
             GpsTracker gpsTracker = ((MainActivity)MainActivity.context_certi).getGpsTracker();
             double lat2 = gpsTracker.getLatitude();
             double lon2 = gpsTracker.getLongitude();
 
+            // 클릭한 데이터의 인증여부 체크
             if (data.getCertification() == "인증 완료")
                 Toast.makeText(context, "이미 인증 완료된 스팟입니다", Toast.LENGTH_SHORT).show();
             else {
+                // 인증대상의 위치정보 받아옴 (lat1, lon1)
                 if (gpsTracker != null) {
                     System.out.println("lat and lon : " + lat2 + " " + lon2);
                     double lat1 = data.getLat();
                     double lon1 = data.getLon();
 
+                    // 현재 위치정보와 인증대상의 위치정보 비교(거리계산) ->
+                    // 거리 100m 이내일시 그 인증대상을 타겟으로 설정후 ->
+                    // DetectorActivity 호출 (타겟의 인덱스정보 (getAdapterPosition()) 를 넘겨줌)
                     if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < 100) {
                         Intent intent = new Intent(context, DetectorActivity.class);
                         intent.putExtra("targetI", getAdapterPosition());
@@ -118,6 +123,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             }
             //gpsTracker.locationManager.removeUpdates(gpsTracker);
         }
+
+        // 두 위치정보간의 거리 계산하는 함수
         public String getDistance(double lat1, double lng1, double lat2, double lng2) {
             double distance;
             Location locationA = new Location("point A");

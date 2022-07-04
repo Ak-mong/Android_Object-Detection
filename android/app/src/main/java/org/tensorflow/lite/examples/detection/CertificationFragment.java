@@ -30,7 +30,10 @@ import org.tensorflow.lite.examples.R;
 
 public class CertificationFragment extends Fragment {
 
+    // 인증대상의 이름 리스트
     static List<String> listTitle = Arrays.asList("정문", "안내문", "북문", "테크노문", "석탑", "백호관", "당근", "test", "test");
+
+    // 인증대상의 인증여부 리스트
     static List<String> listCertification = Arrays.asList(
             "인증 미완료",
             "인증 미완료",
@@ -42,6 +45,8 @@ public class CertificationFragment extends Fragment {
             "인증 미완료",
             "인증 미완료"
     );
+
+    // 인증대상의 사진 리스트
     static List<Integer> listResId = Arrays.asList(
             R.drawable.front,
             R.drawable.nine,
@@ -54,6 +59,7 @@ public class CertificationFragment extends Fragment {
             R.drawable.caret
     );
 
+    // 인증대상의 위도정보 리스트
     static List<Double> listLat = Arrays.asList(
             35.88517,//35.88517,
             35.886786,//35.886786
@@ -64,8 +70,9 @@ public class CertificationFragment extends Fragment {
             35.835265,
             35.835265,
             1.2345
-
     );
+
+    // 인증대상의 경도정보 리스트
     static List<Double> listLong = Arrays.asList(
             128.61447,//128.61447
             128.608874,//128.608874
@@ -78,6 +85,7 @@ public class CertificationFragment extends Fragment {
             150.2345
     );
 
+    // RecyclerView와 연결할 어댑터
     public RecyclerAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
