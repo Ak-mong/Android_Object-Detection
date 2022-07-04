@@ -18,10 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import org.tensorflow.lite.examples.Main.MainActivity;
 import org.tensorflow.lite.examples.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
 
+
+    public static final int REQUEST_CODE = 100;
 
     // adapter에 들어갈 list 입니다.
     public ArrayList<Data> listData = new ArrayList<>();
@@ -87,7 +91,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         
         @Override
         public void onClick(View view) {
-            GpsTracker gpsTracker = ((CertificationActivity)CertificationActivity.context_certi).getGpsTracker();
+            GpsTracker gpsTracker = ((MainActivity)MainActivity.context_certi).getGpsTracker();
             double lat2 = gpsTracker.getLatitude();
             double lon2 = gpsTracker.getLongitude();
 
@@ -104,6 +108,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                         intent.putExtra("targetI", getAdapterPosition());
                         gpsTracker.stopUsingGPS();
                         context.startActivity(intent);
+//                        ((MainActivity)MainActivity.context_certi).startActivityForResult(intent,REQUEST_CODE);
                     }
                     else
                         Toast.makeText(context, "올바른 장소에서 인증을 시도해주세요", Toast.LENGTH_SHORT).show();

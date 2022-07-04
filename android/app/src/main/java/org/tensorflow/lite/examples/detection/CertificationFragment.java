@@ -1,10 +1,13 @@
 package org.tensorflow.lite.examples.detection;
 
+import static android.app.Activity.RESULT_OK;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,6 +18,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -22,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.tensorflow.lite.examples.R;
 
-public class CertificationActivity extends AppCompatActivity {
+public class CertificationFragment extends Fragment {
 
     static List<String> listTitle = Arrays.asList("정문", "안내문", "북문", "테크노문", "석탑", "백호관", "당근", "test", "test");
     static List<String> listCertification = Arrays.asList(
@@ -33,7 +39,7 @@ public class CertificationActivity extends AppCompatActivity {
             "인증 미완료",
             "인증 미완료",
             "인증 완료",
-            "인증 완료",
+            "인증 미완료",
             "인증 미완료"
     );
     static List<Integer> listResId = Arrays.asList(
@@ -49,65 +55,63 @@ public class CertificationActivity extends AppCompatActivity {
     );
 
     static List<Double> listLat = Arrays.asList(
-            35.88517,//35.835292,//35.88517,
-            35.886786,//35.835265,//35.886786
-            35.8919,//,35.835265,//35.8919,
-            35.892548,//35.835265,//35.892548
-            35.889417,//35.835265,//35.889417
-            35.888488,//35.835265,//35.888488
-            10.3244,
-            10.32442,
+            35.88517,//35.88517,
+            35.886786,//35.886786
+            35.8919,//35.8919,
+            35.892548,//35.892548
+            35.889417,//35.889417
+            35.888488,//35.888488
+            35.835265,
+            35.835265,
             1.2345
 
     );
     static List<Double> listLong = Arrays.asList(
-            128.61447,//128.682395,//128.61447
-            128.608874,//128.682495,//128.608874
-            128.610129,//128.682495,//128.610129,
-            128.614867,//128.682495,//128.614867
-            128.612461,//128.682495,//128.612461
-            128.604296,//128.682495,//128.604296
-            129.324,
-            130.59,
+            128.61447,//128.61447
+            128.608874,//128.608874
+            128.610129,//128.610129,
+            128.614867,//128.614867
+            128.612461,//128.612461
+            128.604296,//128.604296
+            128.682495,
+            128.682495,
             150.2345
     );
 
-    public GpsTracker gpsTracker;
-    public static Context context_certi;
     public RecyclerAdapter adapter;
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        return inflater.inflate(R.layout.fragment_certification, container, false);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_certification);
+    public void onStart() {
+        super.onStart();
 
-        gpsTracker = new GpsTracker(this);
+        RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
 
-        System.out.println("onCreate "+ gpsTracker.getLatitude() + " " + gpsTracker.getLongitude());
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        int checked_target = getActivity().getIntent().getIntExtra("checked_target", -1);
 
-        int d_flag = getIntent().getIntExtra("d_flag", -1);
-
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
 
         if(permissionCheck == PackageManager.PERMISSION_DENIED){ //위치 권한 확인
             //위치 권한 요청
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
 
-        if(d_flag == 1){
-            Toast.makeText(getApplicationContext(), "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+        if(checked_target != -1){
+            listCertification.set(checked_target, "인증 완료");
         }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
 
         getData();
-
-        context_certi = this;
     }
 
     private void getData() {
@@ -131,22 +135,18 @@ public class CertificationActivity extends AppCompatActivity {
         listCertification.set(i, "인증 완료");
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==2) {
-            if(resultCode==RESULT_OK) {
-                Toast.makeText(CertificationActivity.this, "result ok!", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(CertificationActivity.this, "result cancle!", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    public GpsTracker getGpsTracker() {
-        return gpsTracker;
-    }
+//    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if(requestCode==2) {
+//            if(resultCode==RESULT_OK) {
+//                Toast.makeText(getActivity(), "result ok!", Toast.LENGTH_SHORT).show();
+//            }
+//            else {
+//                Toast.makeText(getActivity(), "result cancle!", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 }
 
 

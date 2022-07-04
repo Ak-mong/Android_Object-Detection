@@ -1,6 +1,7 @@
 package org.tensorflow.lite.examples.Main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -24,7 +25,8 @@ import org.tensorflow.lite.examples.Dialog.DisconnectHandler;
 
 
 import org.tensorflow.lite.examples.R;
-import org.tensorflow.lite.examples.detection.CertificationActivity;
+import org.tensorflow.lite.examples.detection.CertificationFragment;
+import org.tensorflow.lite.examples.detection.GpsTracker;
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -55,11 +57,21 @@ public class MainActivity extends BaseActivity {
 //                }
 //            });
 
+    public GpsTracker gpsTracker;
+    public static Context context_certi;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_forWooSung);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottomNavi);
+
+        gpsTracker = new GpsTracker(this);
+        System.out.println("onCreate "+ gpsTracker.getLatitude() + " " + gpsTracker.getLongitude());
+
+        context_certi = this;
+
+        int d_flag = getIntent().getIntExtra("d_flag", -1);
 
         AndroidBridge androidBridge = new AndroidBridge(this);
 
@@ -77,7 +89,15 @@ public class MainActivity extends BaseActivity {
                 iconView.setLayoutParams(layoutParams);
             }
         }
-        loadFragment(new Fragment1());
+        if(d_flag == -1) {
+            loadFragment(new Fragment1());
+        }
+        else {
+            if(d_flag == 1)
+                Toast.makeText(this, "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+            loadFragment(new CertificationFragment());
+            bottomNavigationView.getMenu().findItem(R.id.item4).setChecked(true);
+        }
 
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
@@ -95,17 +115,20 @@ public class MainActivity extends BaseActivity {
                     bottomMenu = "menu2";
                     break;
                 case R.id.item4:
-                    Intent intent = new Intent(this, CertificationActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
+                    loadFragment(new CertificationFragment());
+                    bottomMenu = "menu3";
+                    break;
+//                    Intent intent = new Intent(this, CertificationActivity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+//                    overridePendingTransition(0, 0);
 //                    IntentIntegrator integrator = new IntentIntegrator(this);
 //                    integrator.setCaptureActivity(QR_View.class);
 //                    integrator.initiateScan();
 //                    Intent QRview = new Intent(this, QR_View.class);
 //                    startActivity(QRview);
 //                    launcher.launch(QRview);
-                    break;
+//                    break;
             }
             return true;
         });
@@ -164,26 +187,32 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+//            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+//            String ScanResult = result.getContents();
 
-            String ScanResult = result.getContents();
-
-            System.out.println("result : " + ScanResult);
+            int d_flag = data.getIntExtra("d_flag", -1);
+            int checked_target = data.getIntExtra("checked_target", -1);
 
             Bundle bundle = new Bundle();
-            Fragment mapPage = new Fragment3();
-            bottomMenu = "menu2";
-            bundle.putString("ScanResult", ScanResult);
+            Fragment mapPage = new CertificationFragment();
+            bottomMenu = "menu3";
             mapPage.setArguments(bundle);
+//            ((mapPage) getSupportFragmentManager().findFragmentByTag("mapPage")).changeCert(checked_target);
+            Toast.makeText(this, "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
             loadFragment(mapPage);
-
-            bottomNavigationView.getMenu().findItem(R.id.item3).setChecked(true);
+            bottomNavigationView.getMenu().findItem(R.id.item4).setChecked(true);
 
         }
+        else return;
 
 //        Intent intent = new Intent();
 //        intent.putExtra("result",result.getContents());
 //        setResult(RESULT_OK, intent);
 
     }
+
+    public GpsTracker getGpsTracker() {
+        return gpsTracker;
+    }
+
 }

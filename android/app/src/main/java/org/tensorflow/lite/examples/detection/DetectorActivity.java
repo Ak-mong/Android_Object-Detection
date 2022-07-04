@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.tensorflow.lite.examples.Main.MainActivity;
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
 import org.tensorflow.lite.examples.detection.customview.OverlayView.DrawCallback;
 import org.tensorflow.lite.examples.detection.env.BorderedText;
@@ -52,7 +53,6 @@ import org.tensorflow.lite.examples.detection.tflite.YoloV5Classifier;
 import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
 import org.tensorflow.lite.examples.R;
 
-import org.tensorflow.lite.examples.detection.CertificationActivity;
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
  * objects.
@@ -291,12 +291,16 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 mappedRecognitions.add(result);
                                 if(target != -1 && result.getConfidence() > 0.8f && result.getDetectedClass() == target) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
                                     System.out.println("target is "+ target.toString() + "gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
-                                    //Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(getApplicationContext(), CertificationActivity.class);
+//                                    Toast.makeText(getApplicationContext(), result.getTitle(), Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                    Intent intent = new Intent();
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     intent.putExtra("d_flag", 1);
+                                    intent.putExtra("checked_target", target);
                                     System.out.println("in if1 target is "+ target.toString());
-                                    ((CertificationActivity)CertificationActivity.context_certi).changeCert(target);
+//                                    setResult(RESULT_OK, intent);
+//                                    finish();
+//                                    ((CertificationFragment)CertificationFragment.context_certi).changeCert(target);
                                     startActivity(intent);
                                     overridePendingTransition(0, 0);
                                 }
@@ -352,5 +356,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     @Override
     protected void setNumThreads(final int numThreads) {
         runInBackground(() -> detector.setNumThreads(numThreads));
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("d_flag", 2); // 뒤로가기 눌렀을 때 플래그
+        startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 }
