@@ -30,6 +30,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     // adapter에 들어갈 list(CertificationFragment 내의 리스트와 연결)
     public ArrayList<Data> listData = new ArrayList<>();
     private Context context;
+    private Integer DISTANCE_ERROR_RANGE = 50; // GPS 계산 시 인증 가능 범위, 단위 : meter (안드로이드 gps는 기본 20m 오차)
 
     @NonNull
     @Override
@@ -102,14 +103,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             else {
                 // 인증대상의 위치정보 받아옴 (lat1, lon1)
                 if (gpsTracker != null) {
-                    Log.d("test present GPS","경도는 " + lat2 + " ,위도는 " + lon2);
+                    Log.d("test current GPS","경도는 " + lat2 + " ,위도는 " + lon2);
                     double lat1 = data.getLat();
                     double lon1 = data.getLon();
 
                     // 현재 위치정보와 인증대상의 위치정보 비교(거리계산) ->
                     // 거리 100m 이내일시 그 인증대상을 타겟으로 설정후 ->
                     // DetectorActivity 호출 (타겟의 인덱스정보 (getAdapterPosition()) 를 넘겨줌)
-                    if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < 100) {
+                    if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < DISTANCE_ERROR_RANGE) {
                         Intent intent = new Intent(context, DetectorActivity.class);
                         intent.putExtra("targetI", getAdapterPosition());
                         gpsTracker.stopUsingGPS();

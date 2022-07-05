@@ -21,8 +21,8 @@ public class GpsTracker extends Service implements LocationListener {
     double latitude;
     double longitude;
 
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // meter
-    private static final long MIN_TIME_BW_UPDATES = 1000; //millisec
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 위치 계산 반복 거리, 단위 : meter
+    private static final long MIN_TIME_BW_UPDATES = 1000; // 위치 계산 반복 시간, 단위 : millisec
     protected LocationManager locationManager;
 
 
@@ -49,6 +49,8 @@ public class GpsTracker extends Service implements LocationListener {
                 if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
                     ;
                 } else return null;
+
+                // 네트워크(와이파이), GPS 사용 가능 시 위치 갱신
                 if (isNetworkEnabled) {
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                 }
@@ -82,6 +84,7 @@ public class GpsTracker extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        // requestLocationUpdates()에 의해 위치 변경 시 위도, 경도 값 갱신
         latitude = location.getLatitude();
         longitude = location.getLongitude();
     }

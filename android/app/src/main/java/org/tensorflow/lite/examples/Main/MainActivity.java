@@ -50,8 +50,8 @@ public class MainActivity extends BaseActivity {
 //                }
 //            });
 
-    public GpsTracker gpsTracker;
-    public static Context context_certi;
+    public GpsTracker gpsTracker; // GPS를 위한 class(GpsTracker.java)
+    public static Context context_certi; // 메인 액티비티의 Context
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,12 +82,17 @@ public class MainActivity extends BaseActivity {
                 iconView.setLayoutParams(layoutParams);
             }
         }
+
         if(d_flag == -1) {
+            // 앱 실행 시 홈화면(Fragment1)
             loadFragment(new Fragment1());
         }
         else {
-            if(d_flag == 1)
+            // 카메라 액티비티에서 메인 액티비티로 복귀 시(인증 완료 or 뒤로가기)
+            if(d_flag == 1) {
+                // 인증 완료로 인한 복귀 + 인증메시지 발생
                 Toast.makeText(this, "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+            }
             loadFragment(new CertificationFragment());
             bottomNavigationView.getMenu().findItem(R.id.item4).setChecked(true);
         }

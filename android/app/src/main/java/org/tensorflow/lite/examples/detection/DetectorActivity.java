@@ -86,6 +86,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private BorderedText borderedText;
 
+    private Float MIN_CONFIDENCE = 0.85f; // 타겟 인증의 최소 Confidence값, 카메라 객체 인식 시 나타나는 %와 다름
+
     public Integer target;
 
     @Override
@@ -267,6 +269,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         paint.setStrokeWidth(2.0f);
 
                         target = getIntent().getIntExtra("targetI", -1);
+                        // target의 index를 intent에서 가져옴
 
                         float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
                         switch (MODE) {
@@ -288,12 +291,15 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
-                                if(target != -1 && result.getConfidence() > 0.8f && result.getDetectedClass() == target) { // gps에 의해 받은 index를 "0"대신 넣으면 됨
+                                if(target != -1 && result.getConfidence() > MIN_CONFIDENCE && result.getDetectedClass() == target) {
+                                    // DetectedClass가 target인 경우 + 결과의 Confidence값이 MIN_CONFIDENCE보다 높은 경우 인증 완료
                                     Log.d("detect","target is "+ target.toString() + "gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
+
+                                    // Intent로 메인 액티비티를 실행
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    intent.putExtra("d_flag", 1);
-                                    intent.putExtra("checked_target", target);
+                                    intent.putExtra("d_flag", 1); // 메인으로 넘겨줄 d_flag(detect flag)를 1로 설정, 카메라 인증 완료임을 의미
+                                    intent.putExtra("checked_target", target); // 인증 완료된 타겟을 메인으로 넘겨줌
                                     startActivity(intent);
                                     overridePendingTransition(0, 0);
                                 }
@@ -352,9 +358,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     }
 
     public void onBackPressed(){
+        // 안드로이드의 뒤로가기 버튼으로 카메라 액티비티를 나가려 할 때
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("d_flag", 2); // 뒤로가기 눌렀을 때 플래그
+        intent.putExtra("d_flag", 2); // 메인으로 넘겨줄 d_flag를 2로 설정, 인증 완료가 아닌 뒤로가기로 인해 액티비티가 전환됨을 의미
         startActivity(intent);
         overridePendingTransition(0, 0);
     }
