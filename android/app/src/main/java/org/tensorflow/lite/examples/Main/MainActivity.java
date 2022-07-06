@@ -68,8 +68,8 @@ public class MainActivity extends BaseActivity {
 
         AndroidBridge androidBridge = new AndroidBridge(this);
 
-        DisconnectHandler dh = new DisconnectHandler(this, this);
-        dh.netWorkChecking(this, getSupportFragmentManager());
+//        DisconnectHandler dh = new DisconnectHandler(this, this);
+//        dh.netWorkChecking(this, getSupportFragmentManager());
 
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {

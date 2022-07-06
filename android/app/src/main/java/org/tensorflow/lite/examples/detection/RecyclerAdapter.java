@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import org.tensorflow.lite.examples.Dialog.Toast_Custom;
 import org.tensorflow.lite.examples.Main.MainActivity;
 import org.tensorflow.lite.examples.R;
 
@@ -31,6 +32,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     public ArrayList<Data> listData = new ArrayList<>();
     private Context context;
     private Integer DISTANCE_ERROR_RANGE = 50; // GPS 계산 시 인증 가능 범위, 단위 : meter (안드로이드 gps는 기본 20m 오차)
+
+    Toast_Custom tc;
 
     @NonNull
     @Override
@@ -98,8 +101,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             double lon2 = gpsTracker.getLongitude();
 
             // 클릭한 데이터의 인증여부 체크
-            if (data.getCertification() == "인증 완료")
-                Toast.makeText(context, "이미 인증 완료된 스팟입니다", Toast.LENGTH_SHORT).show();
+            if (data.getCertification() == "인증 완료") {
+                tc = new Toast_Custom();
+                tc.createToast((Activity) context, "이미 인증 완료된 스팟입니다");
+            }
             else {
                 // 인증대상의 위치정보 받아옴 (lat1, lon1)
                 if (gpsTracker != null) {
@@ -117,8 +122,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                         context.startActivity(intent);
 //                        ((MainActivity)MainActivity.context_certi).startActivityForResult(intent,REQUEST_CODE);
                     }
-                    else
-                        Toast.makeText(context, "올바른 장소에서 인증을 시도해주세요", Toast.LENGTH_SHORT).show();
+                    else {
+                        tc = new Toast_Custom();
+                        tc.createToast((Activity) context, "올바른 장소에서 인증을 시도해주세요");
+                    }
                 }
                 //lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
                 //lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
