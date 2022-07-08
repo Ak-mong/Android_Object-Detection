@@ -22,7 +22,7 @@ public class GpsTracker extends Service implements LocationListener {
     double longitude;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 위치 계산 반복 거리, 단위 : meter
-    private static final long MIN_TIME_BW_UPDATES = 1000; // 위치 계산 반복 시간, 단위 : millisec
+    private static final long MIN_TIME_BW_UPDATES = 1000; // 위치 계산 반복 시간, 단위 : millisec(1000 = 1초)
     protected LocationManager locationManager;
 
 

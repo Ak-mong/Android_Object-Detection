@@ -83,21 +83,21 @@ public abstract class CameraActivity extends AppCompatActivity
   private byte[][] yuvBytes = new byte[3][];
   private int[] rgbBytes = null;
   private int yRowStride;
-  protected int defaultModelIndex = 0;
-  protected int defaultDeviceIndex = 0;
+//  protected int defaultModelIndex = 0;
+//  protected int defaultDeviceIndex = 0;
   private Runnable postInferenceCallback;
   private Runnable imageConverter;
   protected ArrayList<String> modelStrings = new ArrayList<String>();
 
-  private LinearLayout bottomSheetLayout;
-  private LinearLayout gestureLayout;
-  private BottomSheetBehavior<LinearLayout> sheetBehavior;
-
-  protected TextView frameValueTextView, cropValueTextView, inferenceTimeTextView;
-  protected ImageView bottomSheetArrowImageView;
-  private ImageView plusImageView, minusImageView;
-  protected ListView deviceView;
-  protected TextView threadsTextView;
+//  private LinearLayout bottomSheetLayout;
+//  private LinearLayout gestureLayout;
+//  private BottomSheetBehavior<LinearLayout> sheetBehavior;
+//
+//  protected TextView frameValueTextView, cropValueTextView, inferenceTimeTextView;
+//  protected ImageView bottomSheetArrowImageView;
+//  private ImageView plusImageView, minusImageView;
+//  protected ListView deviceView;
+//  protected TextView threadsTextView;
   protected ListView modelView;
   /** Current indices of device and model. */
   int currentDevice = -1;

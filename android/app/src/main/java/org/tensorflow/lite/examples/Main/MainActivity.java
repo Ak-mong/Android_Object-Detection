@@ -65,6 +65,7 @@ public class MainActivity extends BaseActivity {
         context_certi = this;
 
         int d_flag = getIntent().getIntExtra("d_flag", -1);
+        // detect flag, -1=디폴트, 카메라 액티비티와 무관함, 1=카메라 액티비티에서 인식 완료 후 복귀, 2=카메라 액티비티에서 뒤로가기 키로 복귀(인식 미완료)
 
         AndroidBridge androidBridge = new AndroidBridge(this);
 
