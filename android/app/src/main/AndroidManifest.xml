@@ -56,7 +56,8 @@
         </activity>
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Main.QR_View" />
-        <activity android:name=".detection.ResultActivity"/>
+        <activity android:name=".detection.ResultActivity"
+            android:theme="@style/Theme.MyDialog"/>
 
         <activity
             android:name=".detection.DetectorActivity"

@@ -302,7 +302,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                     Log.d("detect","target is "+ target.toString() + "gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
 
                                     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     intent.putExtra("checked_target", target); // 인증 완료된 타겟을 메인으로 넘겨줌
                                     startActivity(intent);
 
