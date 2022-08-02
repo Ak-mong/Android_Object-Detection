@@ -197,4 +197,5 @@ public class LegacyCameraConnectionFragment extends Fragment {
     }
     return -1; // No camera found
   }
+
 }

@@ -18,6 +18,7 @@ package org.tensorflow.lite.examples.detection;
 
 import static android.os.SystemClock.sleep;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -35,6 +36,9 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -89,6 +93,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private Float MIN_CONFIDENCE = 0.85f; // 타겟 인증의 최소 Confidence값, 카메라 객체 인식 시 나타나는 %와 다름
 
     public Integer target;
+
+    Dialog dialog01;
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -295,13 +301,18 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                     // DetectedClass가 target인 경우 + 결과의 Confidence값이 MIN_CONFIDENCE보다 높은 경우 인증 완료
                                     Log.d("detect","target is "+ target.toString() + "gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
 
-                                    // Intent로 메인 액티비티를 실행
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    intent.putExtra("d_flag", 1); // 메인으로 넘겨줄 d_flag(detect flag)를 1로 설정, 카메라 인증 완료임을 의미
                                     intent.putExtra("checked_target", target); // 인증 완료된 타겟을 메인으로 넘겨줌
                                     startActivity(intent);
-                                    overridePendingTransition(0, 0);
+
+                                    // Intent로 메인 액티비티를 실행
+//                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                    intent.putExtra("d_flag", 1); // 메인으로 넘겨줄 d_flag(detect flag)를 1로 설정, 카메라 인증 완료임을 의미
+//                                    intent.putExtra("checked_target", target); // 인증 완료된 타겟을 메인으로 넘겨줌
+//                                    startActivity(intent);
+//                                    overridePendingTransition(0, 0);
                                 }
 //                                try{
 //                                    Thread.sleep(1000);
@@ -366,3 +377,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         overridePendingTransition(0, 0);
     }
 }
+
+
+
