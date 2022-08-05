@@ -91,8 +91,6 @@ public class CertificationFragment extends Fragment {
 
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-
         int checked_target = getActivity().getIntent().getIntExtra("checked_target", -1);
 
         int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
