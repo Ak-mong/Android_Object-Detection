@@ -3,6 +3,7 @@ package org.tensorflow.lite.examples.detection;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.Fragment;
@@ -89,6 +90,8 @@ public class CertificationFragment extends Fragment {
         super.onStart();
 
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
+
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
         int checked_target = getActivity().getIntent().getIntExtra("checked_target", -1);
 

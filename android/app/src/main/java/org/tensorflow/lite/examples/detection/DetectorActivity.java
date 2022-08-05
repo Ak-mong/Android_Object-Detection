@@ -30,6 +30,7 @@ import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
@@ -41,7 +42,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -301,8 +306,13 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                     // DetectedClass가 target인 경우 + 결과의 Confidence값이 MIN_CONFIDENCE보다 높은 경우 인증 완료
                                     Log.d("detect","target is "+ target.toString() + "gettitle : " + result.getTitle() + " confi : " + result.getConfidence());
 
+                                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                    croppedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                                    byte[] bytes = stream.toByteArray();
+
                                     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
 //                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.putExtra("BMP",bytes);
                                     intent.putExtra("checked_target", target); // 인증 완료된 타겟을 메인으로 넘겨줌
                                     startActivity(intent);
 
