@@ -7,14 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-
 import org.tensorflow.lite.examples.R;
 
 public class ResultActivity extends AppCompatActivity {
 
     Button yesButton, noButton;
+    TextView targetname;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,8 +23,12 @@ public class ResultActivity extends AppCompatActivity {
 
         yesButton = findViewById(R.id.yesBtn);
         noButton = findViewById(R.id.noBtn);
+        targetname = findViewById(R.id.target);
 
         int checked_target = getIntent().getIntExtra("checked_target", -1);
+        String checked_target_name = getIntent().getStringExtra("checked_target_name");
+
+        targetname.setText(checked_target_name);
 
         byte[] bytes = getIntent().getByteArrayExtra("BMP");
         Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

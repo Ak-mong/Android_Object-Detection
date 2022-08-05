@@ -132,9 +132,6 @@ public class CertificationFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    public void changeCert(int i){
-        listCertification.set(i, "인증 완료");
-    }
 
 //    public void onActivityResult (int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);

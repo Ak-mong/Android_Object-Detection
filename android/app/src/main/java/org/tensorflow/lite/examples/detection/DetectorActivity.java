@@ -314,6 +314,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 //                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     intent.putExtra("BMP",bytes);
                                     intent.putExtra("checked_target", target); // 인증 완료된 타겟을 메인으로 넘겨줌
+                                    intent.putExtra("checked_target_name", CertificationFragment.listTitle.get(target));
                                     startActivity(intent);
 
                                     // Intent로 메인 액티비티를 실행
