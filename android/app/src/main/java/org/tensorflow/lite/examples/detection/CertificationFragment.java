@@ -76,6 +76,22 @@ public class CertificationFragment extends Fragment {
             150.2345
     );
 
+    // 인증대상의 상세내용
+    static List<String> listInformation = Arrays.asList(
+            "(랜드마크 설명)\n" +
+                    "운영진만 편집 가능한 문서입니다. \n" +
+                    "편집 분야로서의 나무위키에 대한 문서만 분류합니다. 따라서 나무위키 이름공간 문서는 더 이상 이곳에 분류하지 않습니다.\n" +
+                    "다른 뜻 아이콘  나무위키와 관련된 문서들을 분류하는 곳입니다. "
+            ,"내용내용내용내용내용내용내용내용"
+            ,"내용내용내용내용내용내용내용내용"
+            ,"내용내용내용내용내용내용내용내용"
+            ,"내용내용내용내용내용내용내용내용"
+            ,"내용내용내용내용내용내용내용내용"
+            ,"내용내용내용내용내용내용내용내용"
+            ,"내용내용내용내용내용내용내용내용"
+            ,"내용내용내용내용내용내용내용내용"
+            );
+
     // RecyclerView와 연결할 어댑터
     public RecyclerAdapter adapter;
 
@@ -122,6 +138,7 @@ public class CertificationFragment extends Fragment {
             data.setResId(listResId.get(i));
             data.setLat(listLat.get(i));
             data.setLon(listLong.get(i));
+            data.setInformation(listInformation.get(i));
 
             // 각 값이 들어간 data를 adapter에 추가합니다.
             adapter.addItem(data);

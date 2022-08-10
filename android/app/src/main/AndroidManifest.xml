@@ -58,16 +58,13 @@
         <activity android:name=".Main.QR_View" />
         <activity android:name=".detection.ResultActivity"
             android:theme="@style/Theme.MyDialog"/>
+        <activity android:name=".detection.DetailActivity"/>
 
         <activity
             android:name=".detection.DetectorActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".detection.CertificationActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
-        </activity>
+
     </application>
 
 </manifest>

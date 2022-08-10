@@ -20,14 +20,16 @@
                 android:id="@+id/certi_detail_iv"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:scaleType="fitXY"></ImageView>
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="20dp"></ImageView>
 
             <TextView
                 android:id="@+id/text_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginBottom="20dp"
                 android:text="TITLE"
                 android:textSize="24sp"
                 android:textColor="@android:color/black"
@@ -38,7 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"></View>
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="20dp"></View>
 
             <TextView
                 android:id="@+id/text_information"
@@ -48,7 +51,7 @@
                 android:layout_marginRight="8dp"
                 android:text="content"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textStyle="normal"></TextView>
 
         </LinearLayout>
@@ -60,6 +63,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/certi_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

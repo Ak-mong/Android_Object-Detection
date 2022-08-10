@@ -31,9 +31,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     // adapter에 들어갈 list(CertificationFragment 내의 리스트와 연결)
     public ArrayList<Data> listData = new ArrayList<>();
     private Context context;
-    private Integer DISTANCE_ERROR_RANGE = 50; // GPS 계산 시 인증 가능 범위, 단위 : meter (안드로이드 gps는 기본 20m 오차)
-
-    Toast_Custom tc;
 
     @NonNull
     @Override
@@ -95,77 +92,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         // 리스트에서 인증대상 클릭시 동작
         @Override
         public void onClick(View view) {
-            // GPS를 이용해 현재 위치정보 받아옴 (lat2, lon2)
-            GpsTracker gpsTracker = ((MainActivity)MainActivity.context_certi).getGpsTracker();
-            double lat2 = gpsTracker.getLatitude();
-            double lon2 = gpsTracker.getLongitude();
-
-            // 클릭한 데이터의 인증여부 체크
-            if (data.getCertification() == "인증 완료") {
-                tc = new Toast_Custom();
-                tc.createToast((Activity) context, "이미 인증 완료된 스팟입니다");
-            }
-            else {
-                // 인증대상의 위치정보 받아옴 (lat1, lon1)
-                if (gpsTracker != null) {
-                    Log.d("test current GPS","경도는 " + lat2 + " ,위도는 " + lon2);
-                    double lat1 = data.getLat();
-                    double lon1 = data.getLon();
-
-                    // 현재 위치정보와 인증대상의 위치정보 비교(거리계산) ->
-                    // 거리 100m 이내일시 그 인증대상을 타겟으로 설정후 ->
-                    // DetectorActivity 호출 (타겟의 인덱스정보 (getAdapterPosition()) 를 넘겨줌)
-                    if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < DISTANCE_ERROR_RANGE) {
-                        Intent intent = new Intent(context, DetectorActivity.class);
-                        intent.putExtra("targetI", getAdapterPosition());
-                        gpsTracker.stopUsingGPS();
-                        context.startActivity(intent);
-//                        ((MainActivity)MainActivity.context_certi).startActivityForResult(intent,REQUEST_CODE);
-                    }
-                    else {
-                        tc = new Toast_Custom();
-                        tc.createToast((Activity) context, "올바른 장소에서 인증을 시도해주세요");
-                    }
-                }
-                //lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
-                //lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
-            }
-            //gpsTracker.locationManager.removeUpdates(gpsTracker);
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra("targetI", getAdapterPosition());
+            context.startActivity(intent);
         }
-
-        // 두 위치정보간의 거리 계산하는 함수
-        public String getDistance(double lat1, double lng1, double lat2, double lng2) {
-            double distance;
-            Location locationA = new Location("point A");
-            locationA.setLatitude(lat1);
-            locationA.setLongitude(lng1);
-            Location locationB = new Location("point B");
-            locationB.setLatitude(lat2);
-            locationB.setLongitude(lng2);
-            distance = locationA.distanceTo(locationB);
-            String num = String.format("%.0f", distance);
-            return num;
-        }
-
-        final LocationListener gpsLocationListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                // 위치 리스너는 위치정보를 전달할 때 호출되므로 onLocationChanged()메소드 안에 위지청보를 처리를 작업을 구현 해야합니다.
-                String provider = location.getProvider();  // 위치정보
-                double longitude = location.getLongitude(); // 위도
-                double latitude = location.getLatitude(); // 경도
-            }
-
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
     }
 }
