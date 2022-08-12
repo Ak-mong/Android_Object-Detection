@@ -1,7 +1,10 @@
 package org.tensorflow.lite.examples.Main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -15,11 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import org.tensorflow.lite.examples.Common.BaseActivity;
-import org.tensorflow.lite.examples.Dialog.DisconnectHandler;
 
 
 import org.tensorflow.lite.examples.R;
 import org.tensorflow.lite.examples.detection.CertificationFragment;
+import org.tensorflow.lite.examples.detection.DetectorActivity;
 import org.tensorflow.lite.examples.detection.GpsTracker;
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
@@ -32,6 +35,7 @@ public class MainActivity extends BaseActivity {
     BottomNavigationView bottomNavigationView;
     private long backKeyPressedTime = 0;
     private String bottomMenu = "home";
+    private Integer DISTANCE_ERROR_RANGE = 50; // GPS 계산 시 인증 가능 범위, 단위 : meter (안드로이드 gps는 기본 20m 오차)
     Toast toast;
 //    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
 //            result -> {
@@ -52,6 +56,8 @@ public class MainActivity extends BaseActivity {
 
     public GpsTracker gpsTracker; // GPS를 위한 class(GpsTracker.java)
     public static Context context_certi; // 메인 액티비티의 Context
+
+    public Integer target;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +101,7 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(this, "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
             }
             loadFragment(new CertificationFragment());
-            bottomNavigationView.getMenu().findItem(R.id.item4).setChecked(true);
+            bottomNavigationView.getMenu().findItem(R.id.item5).setChecked(true);
         }
 
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
@@ -110,12 +116,15 @@ public class MainActivity extends BaseActivity {
                     bottomMenu = "menu1";
                     break;
                 case R.id.item3:
-                    loadFragment(new Fragment3());
-                    bottomMenu = "menu2";
+                    camera_icon_to_certifcation();
                     break;
                 case R.id.item4:
-                    loadFragment(new CertificationFragment());
+                    loadFragment(new Fragment3());
                     bottomMenu = "menu3";
+                    break;
+                case R.id.item5:
+                    loadFragment(new CertificationFragment());
+                    bottomMenu = "menu4";
                     break;
             }
             return true;
@@ -173,5 +182,73 @@ public class MainActivity extends BaseActivity {
     public GpsTracker getGpsTracker() {
         return gpsTracker;
     }
+
+    private void camera_icon_to_certifcation(){
+        GpsTracker gpsTracker = ((org.tensorflow.lite.examples.Main.MainActivity) MainActivity.context_certi).getGpsTracker();
+        double lat2 = gpsTracker.getLatitude();
+        double lon2 = gpsTracker.getLongitude();
+        Log.d("test current GPS","경도는 " + lat2 + " ,위도는 " + lon2);
+
+        if (gpsTracker != null) {
+            for(int i=0;i<CertificationFragment.listCertification.size();i++){
+                double lat1 = CertificationFragment.listLat.get(i);
+                double lon1 = CertificationFragment.listLong.get(i);
+
+                // 현재 위치정보와 인증대상의 위치정보 비교(거리계산) ->
+                // 거리 100m 이내일시 그 인증대상을 타겟으로 설정후 ->
+                // DetectorActivity 호출 (타겟의 인덱스정보 (getAdapterPosition()) 를 넘겨줌)
+                if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < DISTANCE_ERROR_RANGE) {
+                    if (CertificationFragment.listCertification.get(i) == "인증 완료") {
+                        Toast.makeText(getApplicationContext(), "이미 인증 완료된 스팟입니다", Toast.LENGTH_SHORT).show();
+                        loadFragment(new CertificationFragment());
+                        return;
+                    }
+                    else{
+                        Intent intent = new Intent(getApplicationContext(), DetectorActivity.class);
+                        intent.putExtra("targetI", i);
+                        gpsTracker.stopUsingGPS();
+                        startActivity(intent);
+                        return;
+                    }
+                }
+            }
+            Toast.makeText(getApplicationContext(), "올바른 장소에서 인증을 시도해주세요", Toast.LENGTH_SHORT).show();
+            loadFragment(new CertificationFragment());
+        }
+    }
+
+    public String getDistance(double lat1, double lng1, double lat2, double lng2) {
+        double distance;
+        Location locationA = new Location("point A");
+        locationA.setLatitude(lat1);
+        locationA.setLongitude(lng1);
+        Location locationB = new Location("point B");
+        locationB.setLatitude(lat2);
+        locationB.setLongitude(lng2);
+        distance = locationA.distanceTo(locationB);
+        String num = String.format("%.0f", distance);
+        return num;
+    }
+
+    final LocationListener gpsLocationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            // 위치 리스너는 위치정보를 전달할 때 호출되므로 onLocationChanged()메소드 안에 위지청보를 처리를 작업을 구현 해야합니다.
+            String provider = location.getProvider();  // 위치정보
+            double longitude = location.getLongitude(); // 위도
+            double latitude = location.getLatitude(); // 경도
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
 
 }
