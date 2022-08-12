@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/courseImage"
+        android:layout_width="match_parent"
+        android:scaleType="fitCenter"
+        android:layout_height="400dp"
+        android:layout_marginBottom="20dp">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/failed_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="이미 인증 완료된 스팟이거나\n올바른 장소가 아닙니다."
+        />
+
+</LinearLayout>
