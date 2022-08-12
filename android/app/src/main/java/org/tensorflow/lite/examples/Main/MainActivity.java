@@ -200,7 +200,7 @@ public class MainActivity extends BaseActivity {
                 if (Integer.parseInt(getDistance(lat1, lon1, lat2, lon2)) < DISTANCE_ERROR_RANGE) {
                     if (CertificationFragment.listCertification.get(i) == "인증 완료") {
                         Toast.makeText(getApplicationContext(), "이미 인증 완료된 스팟입니다", Toast.LENGTH_SHORT).show();
-                        loadFragment(new CertificationFragment());
+                        loadFragment(new failedFragment());
                         return;
                     }
                     else{
@@ -213,7 +213,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
             Toast.makeText(getApplicationContext(), "올바른 장소에서 인증을 시도해주세요", Toast.LENGTH_SHORT).show();
-            loadFragment(new CertificationFragment());
+            loadFragment(new failedFragment());
         }
     }
 
