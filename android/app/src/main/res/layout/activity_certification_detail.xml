@@ -17,11 +17,12 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/certi_detail_iv"
+                android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:scaleType="centerCrop"
-                android:layout_marginBottom="20dp"></ImageView>
+                android:layout_marginBottom="20dp"
+                android:transitionName="pair_image"></ImageView>
 
             <TextView
                 android:id="@+id/text_name"

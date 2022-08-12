@@ -28,16 +28,28 @@ public class DetailActivity extends AppCompatActivity {
     public Integer target;
 
     @Override
+    public void onEnterAnimationComplete(){
+        super.onEnterAnimationComplete();
+        setInit();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_certification_detail);
 
-        image = findViewById(R.id.certi_detail_iv);
+        getData();
+    }
+
+    private void getData(){
+        target = getIntent().getIntExtra("targetI", -1);
+    }
+
+    private void setInit(){
+        image = findViewById(R.id.imageView);
         name = findViewById(R.id.text_name);
         information = findViewById(R.id.text_information);
         certiButton = findViewById(R.id.certi_button);
-
-        target = getIntent().getIntExtra("targetI", -1);
 
         image.setImageResource(CertificationFragment.listResId.get(target));
         name.setText(CertificationFragment.listTitle.get(target));
@@ -77,8 +89,9 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 }
             }
-    });
-}
+        });
+    }
+
     // 두 위치정보간의 거리 계산하는 함수
     public String getDistance(double lat1, double lng1, double lat2, double lng2) {
         double distance;
@@ -113,6 +126,12 @@ public class DetailActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public void onBackPressed(){
+        supportFinishAfterTransition();
+    }
+
 }
 
 

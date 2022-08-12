@@ -107,15 +107,13 @@ public class CertificationFragment extends Fragment {
 
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
 
-        int checked_target = getActivity().getIntent().getIntExtra("checked_target", -1);
-
         int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-
         if(permissionCheck == PackageManager.PERMISSION_DENIED){ //위치 권한 확인
             //위치 권한 요청
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
 
+        int checked_target = getActivity().getIntent().getIntExtra("checked_target", -1);
         if(checked_target != -1){
             listCertification.set(checked_target, "인증 완료");
         }

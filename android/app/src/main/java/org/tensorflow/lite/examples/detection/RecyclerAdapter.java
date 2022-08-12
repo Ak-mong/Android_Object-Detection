@@ -1,6 +1,7 @@
 package org.tensorflow.lite.examples.detection;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -8,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -94,7 +97,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         public void onClick(View view) {
             Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra("targetI", getAdapterPosition());
-            context.startActivity(intent);
+
+            Pair<View, String> pair_shared = Pair.create(imageView, imageView.getTransitionName());
+            ActivityOptions options =
+                    ActivityOptions.makeSceneTransitionAnimation((Activity) context, pair_shared);
+
+            context.startActivity(intent, options.toBundle());
         }
     }
 }
